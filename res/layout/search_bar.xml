@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
+    
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentTop="true" 
+        android:layout_toLeftOf="@+id/button1"
+        android:singleLine="true"
+        android:imeOptions="actionGo|flagNoExtractUi"
+        android:inputType="textUri"
+        android:typeface="sans"
+        android:background="@color/White"
+        android:layout_centerVertical="true"
+        >
+    </EditText>
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:layout_alignRight="@id/search"
+        
+         />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        
+         />
+
+    
+
+</RelativeLayout>

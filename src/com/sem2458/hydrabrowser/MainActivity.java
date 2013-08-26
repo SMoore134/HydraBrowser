@@ -1,47 +1,22 @@
 package com.sem2458.hydrabrowser;
 
 import android.os.Bundle;
-import android.app.ActionBar;
 import android.app.Activity;
-import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 
-public class MainActivity extends Activity {
-	EditText search;
-	View actionbarview;
-	int focus = 0;
+public class MainActivity extends FragmentActivity {
+	
+	public static int position;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		ActionBar actionBar = getActionBar();
-		actionbarview = View.inflate(this, R.layout.actionbar_layout, null);
-		actionBar.setCustomView(actionbarview);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
-		        | ActionBar.DISPLAY_SHOW_HOME);
-		search = (EditText) actionbarview.findViewById(R.id.search);
-		search.setHorizontallyScrolling(true);
-		search.setBackgroundColor(Color.WHITE);
-		setupButton();
-		
-	}
-
-	private void setupButton() {
-		Button b = (Button) actionbarview.findViewById(R.id.cancel);
-		b.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				search.setText("");
-				
-			}
-			
-		});
+		this.getActionBar().hide();
+		ViewPagerFragment f = new ViewPagerFragment();
+		getSupportFragmentManager().beginTransaction().add(R.id.main_activity, f).commit();
 	}
 
 	@Override
@@ -51,8 +26,23 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	public void deleteSearch(View v){
-		search.setText("");
+	@Override
+	public void onBackPressed(){
+		if(position>=0){
+			WebViewFragment f = (WebViewFragment) ViewPagerFragment.fragments.get(position);
+			if(f.webView.canGoBack()){
+				f.webView.goBack();
+			}
+		}
 	}
 
+	@Override
+	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) 
+	    {
+	        super.finish();
+	        return true;
+	    }
+	    return super.onKeyLongPress(keyCode, event);
+	}
 }
